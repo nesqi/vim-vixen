@@ -83,7 +83,7 @@ jobs:
     steps:
       - checkout
       - setup_npm
-      - run: npm run build
+      - run: npm run package
       - run:
           name: Deploy to AMO
           command: |
