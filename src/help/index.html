@@ -1,0 +1,318 @@
+<h1>Vim Vixen - mail help</h1>
+
+Vim Vixen is a Firefox add-on which allows you to easily navigate the web by
+keyboard. Since version 57, Firefox has migrated to the WebExtensions API and
+has dropped support for legacy add-ons. Vim Vixen is a new choice for Vim users
+since it uses the WebExtensions API.
+
+<h2>Basic usage</h2>
+
+<h3>Keymaps</h3>
+
+<h4>Console</h4>
+
+Keymaps are configurable in the add-on's preferences by navigating to `about:addons` and selecting "Extensions".
+The default mappings are as follows:
+
+<ul>
+  <li><kbd>:</kbd>: open the console</li>
+  <li><kbd>o</kbd>, <kbd>t</kbd>, <kbd>w</kbd>: open a page in the current tab, a new tab, or new window</li>
+  <li><kbd>O</kbd>, <kbd>T</kbd>, <kbd>W</kbd>: similar to <kbd>o</kbd>, <kbd>t</kbd>, <kbd>w</kbd>, but using the current URL</li>
+  <li><kbd>b</kbd>: select tabs by URL or title</li>
+  <li><kbd>a</kbd>: add the current page to your bookmarks</li>
+</ul>
+
+See the <a href='#console-commands'>console commands</a> section for a more detailed description.
+
+<h4>Tabs</h4>
+
+<ul>
+  <li><kbd>d</kbd>: delete the current tab and select the tab to its right</li>
+  <li><kbd>D</kbd>: delete the current tab and select the tab to its left</li>
+  <li><kbd>!</kbd><kbd>d</kbd>: delete a pinned tab</li>
+  <li><kbd>u</kbd>: reopen a close tab</li>
+  <li><kbd>r</kbd>: reload the current tab</li>
+  <li><kbd>R</kbd>: reload the current tab, bypassing the cache</li>
+  <li><kbd>K</kbd> or <kbd>g</kbd><kbd>T</kbd>: select the previous tab</li>
+  <li><kbd>J</kbd> or <kbd>g</kbd><kbd>t</kbd>: select the next tab</li>
+  <li><kbd>g</kbd><kbd>0</kbd>: select the first tab</li>
+  <li><kbd>g</kbd><kbd>$</kbd>: select the last tab</li>
+  <li><kbd>Ctrl</kbd>+<kbd>6</kbd>: open the previously-selected tab</li>
+  <li><kbd>z</kbd><kbd>p</kbd>: pin the curent tab tab</li>
+  <li><kbd>z</kbd><kbd>d</kbd>: duplicate the current tab</li>
+</ul>
+
+<h4>Scrolling</h4>
+
+<ul>
+  <li><kbd>k</kbd>: scroll up</li>
+  <li><kbd>j</kbd>: scroll down</li>
+  <li><kbd>h</kbd>: scroll left</li>
+  <li><kbd>l</kbd>: scroll right</li>
+  <li><kbd>Ctrl</kbd>+<kbd>U</kbd>: scroll up half a page</li>
+  <li><kbd>Ctrl</kbd>+<kbd>D</kbd>: scroll down half a page</li>
+  <li><kbd>Ctrl</kbd>+<kbd>B</kbd>: scroll up a page</li>
+  <li><kbd>Ctrl</kbd>+<kbd>F</kbd>: scroll down a page</li>
+  <li><kbd>g</kbd><kbd>g</kbd>: scroll to the top of a page</li>
+  <li><kbd>G</kbd>: scroll to the bottom of a page</li>
+  <li><kbd>0</kbd>: scroll to the leftmost part of a page</li>
+  <li><kbd>$</kbd>: scroll to the rightmost part of a page</li>
+  <li><kbd>m</kbd>: set a mark for the current position</li>
+  <li><kbd>'</kbd>: jump to a marked position</li>
+</ul>
+
+Lowercase marks (<tt>[a-z]</tt>) store the position of the current tab. Uppercase and
+numeric marks (<tt>[A-Z0-9]</tt>) store the position and the tab.
+
+<h4>Zoom</h4>
+
+<ul>
+  <li><kbd>z</kbd><kbd>i</kbd>: zoom in</li>
+  <li><kbd>z</kbd><kbd>o</kbd>: zoom out</li>
+  <li><kbd>z</kbd><kbd>z</kbd>: zoom neutral (reset)</li>
+</ul>
+
+<h4>Zoom</h4>
+
+<ul>
+  <li><kbd>f</kbd>: follow links in the page in the current tab</li>
+  <li><kbd>F</kbd>: follow links in the page in a new tab</li>
+  <li><kbd>H</kbd>: go back in history</li>
+  <li><kbd>L</kbd>: go forward in history</li>
+  <li><kbd>[</kbd><kbd>[</kbd>, <kbd>]</kbd><kbd>]</kbd>: find a link to the previous/next page and open it</li>
+  <li><kbd>g</kbd><kbd>u</kbd>: go to the parent directory</li>
+  <li><kbd>g</kbd><kbd>U</kbd>: go to the root directory</li>
+  <li><kbd>g</kbd><kbd>i</kbd>: focus the first input field</li>
+</ul>
+
+Vim Vixen can be configured to follow links opened in tabs in the background
+instead of switching to a new tab immediately. To do this, you'll need to update
+the config file: change the <tt>"background"</tt> property of the <tt>"follow.start"</tt>
+action to <tt>true</tt>, e.g.:
+
+<code>
+<pre>
+{
+    "keymaps": {
+        "F": { "type": "follow.start", "newTab": true, "background": true }
+    }
+}
+</pre>
+</code>
+
+<h4>Misc</h4>
+
+<ul>
+  <li><kbd>y</kbd>: copy the URL of the current tab to the clipboard</li>
+  <li><kbd>p</kbd>: open the clipboard's URL in the current tab</li>
+  <li><kbd>P</kbd>: open the clipboard's URL in new tab</li>
+  <li><kbd>Shift</kbd>+<kbd>Esc</kbd>: enable or disable the add-on in the current tab</li>
+  <li><kbd>/</kbd>: start searching for text in the page</li>
+  <li><kbd>n</kbd>: find the next search result in the page</li>
+  <li><kbd>N</kbd>: find the previous search result in the page</li>
+  <li><kbd>g</kbd><kbd>f</kbd>: view the source of the current tab</li>
+</ul>
+
+<h3>Console commands</h3>
+
+Vim Vixen provides a console for `ex`-style commands, similar to Vimperator.
+
+Open the console with <kbd>:</kbd>. Or populate it with initial values using
+<kbd>o</kbd>/<kbd>O</kbd>, <kbd>t</kbd>/<kbd>T</kbd>, or
+<kbd>w</kbd>/<kbd>W</kbd>.
+
+<h4><tt>:open</tt></h4>
+
+The `:open` command operates two different ways, depending on the parameter.
+When the parameter is a URL, it's opened in the current tab.
+
+<code>
+<pre>
+:open http://github.com/ueokande
+</pre>
+</code>
+
+Otherwise, the current tab opens a search page with the supplied string (defaults to Google).
+
+<code>
+<pre>
+:open How to contribute to Vim-Vixen
+</pre>
+</code>
+
+To use a search engine other than the default, specify the search engine to use as the first parameter.
+
+<code>
+<pre>
+:open yahoo How to contribute to Vim-Vixen
+</pre>
+</code>
+
+To adjust the default search-engine and add/remove search engines, see the [search engines](#search-engines) section.
+
+<h4><tt>:tabopen</tt></h4>
+
+Open a URL or search-engine query in a new tab.
+
+<h4><tt>:quit</tt> or <tt>:q</tt></h4>
+
+Close the current tab.
+
+<h4><tt>:quitall</tt> or <tt>:qa</tt></h4>
+
+Close all tabs.
+
+<h4><tt>:bdelete</tt></h4>
+
+Close a certain tab.
+
+You can add <tt>!</tt> to the end of the command to close a tab even if it is pinned:
+
+<code>
+<pre>
+:bdelete!
+</pre>
+</code>
+
+<h4><tt>:bdeletes</tt></h4>
+
+Close tabs matching the specified keywords.
+
+You can add <tt>!</tt> to the end of the command to close pinned tabs:
+
+<code>
+<pre>
+:bdeletes!
+</pre>
+</code>
+
+<h4><tt>:winopen</tt></h4>
+
+Open a URL or search-engine query in a new window.
+
+<h4><tt>:buffer</tt></h4>
+
+Select tabs by URL or title keywords.
+
+<h4><tt>:addbookmark</tt></h4>
+
+Create a bookmark from the current URL.
+
+<code>
+<pre>
+:addbookmark My bookmark title
+</pre>
+</code>
+
+The keymap <kbd>a</kbd> is a convenient way to create a bookmark for the
+current page. It populates the console with `:addbookmark` and the title of
+the current page.
+
+<h4><tt>:set</tt></h4>
+
+The <tt>:set</tt> command can be used to temporarily override properties in the
+console. See the [properties](#properties) section for more details on
+the available properties.
+
+<h3>Properties</h3>
+
+Vim Vixen can be configured by defining settings in a JSON document, e.g.:
+
+<code>
+<pre>
+{
+   "properties": {
+       "complete": "sbh"
+   }
+}
+</pre>
+</code>
+
+Properties can be temporarily overridden by using the `:set` command in the
+console.
+
+The following properties are available:
+
+<h4><tt>smoothscroll</tt></h4>
+
+Enable/disable smooth scrolling.
+
+<code>
+<pre>
+:set smoothscroll   " enable smooth scrolling
+:set nosmoothscroll " disable smooth scrolling
+</pre>
+</code>
+
+<h4><tt>hintchars</tt></h4>
+
+Set hint characters.
+
+<code>
+<pre>
+:set hintchars=0123456789
+</pre>
+</code>
+
+<h4><tt>complete</tt></h4>
+
+Set completion items on <tt>open</tt>, <tt>tabopen</tt>, and <tt>winopen</tt> commands.
+The allowed value is character sequence of <tt>s</tt>, <tt>b</tt>, or <tt>h</tt>.
+Hit <kbd>Tab</kbd> or <kbd>Shift</kbd>+<kbd>Tab</kbd> to select an item from the completion list.
+Each character represents the following:
+
+- <tt>s</tt>: search engines
+- <tt>b</tt>: bookmark items
+- <tt>h</tt>: history items.
+
+<code>
+<pre>
+:set complete=sbh
+</pre>
+</code>
+
+<h3>Search engines</h3>
+
+Vim Vixen supports searching with search engines such as Google and Yahoo.
+
+You can configure search engines, including the default search engine, in the add-on's preferences.
+The URLs specified in <tt>"engines"</tt> must contain a <tt>{}</tt>-placeholder, which will be
+replaced with the search keyword parameters of the command.
+
+<code>
+<pre>
+{
+  "search": {
+    "default": "google",
+    "engines": {
+      "google": "https://google.com/search?q={}",
+      "yahoo": "https://search.yahoo.com/search?p={}",
+      "bing": "https://www.bing.com/search?q={}",
+      "duckduckgo": "https://duckduckgo.com/?q={}",
+      "twitter": "https://twitter.com/search?q={}",
+      "wikipedia": "https://en.wikipedia.org/w/index.php?search={}"
+    }
+  }
+}
+</pre>
+</code>
+
+<h3>Blacklist</h3>
+
+The blacklist allows you to disable the plugin for certain pages by URL patterns.
+For instance, you could use <tt>"*.slack.com"</tt> to disable the plugin on all Slack channels.
+In addition, you can also specify path patterns, such as <tt>"example.com/mail/*"</tt>.
+
+<code>
+<pre>
+{
+  "blacklist": [
+    "*.slack.com",
+    "example.com/mail/*"
+  ]
+}
+</pre>
+</code>
+
+You can toggle Vim Vixen between disabled and enabled with
+<kbd>shift</kbd>+<kbd>Esc</kbd>.
