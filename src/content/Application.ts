@@ -54,6 +54,8 @@ export default class Application {
         return this.findController.next(msg);
       case messages.FIND_PREV:
         return this.findController.prev(msg);
+      case messages.CONSOLE_FOCUS:
+        return this.consoleFrameController.focus(msg);
       case messages.CONSOLE_UNFOCUS:
         return this.consoleFrameController.unfocus(msg);
       case messages.FOLLOW_START:

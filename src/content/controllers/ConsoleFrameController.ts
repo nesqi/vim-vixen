@@ -12,4 +12,8 @@ export default class ConsoleFrameController {
   unfocus(_message: messages.Message) {
     this.consoleFrameUseCase.unfocus();
   }
+
+  focus(_message: messages.Message) {
+    this.consoleFrameUseCase.focus();
+  }
 }

@@ -2,6 +2,7 @@ import * as operations from './operations';
 
 export const BACKGROUND_OPERATION = 'background.operation';
 
+export const CONSOLE_FOCUS = 'console.focus';
 export const CONSOLE_UNFOCUS = 'console.unfocus';
 export const CONSOLE_ENTER_COMMAND = 'console.enter.command';
 export const CONSOLE_ENTER_FIND = 'console.enter.find';
@@ -54,6 +55,10 @@ export interface BackgroundOperationMessage {
 
 export interface ConsoleUnfocusMessage {
   type: typeof CONSOLE_UNFOCUS;
+}
+
+export interface ConsoleFocusMessage {
+  type: typeof CONSOLE_FOCUS;
 }
 
 export interface ConsoleEnterCommandMessage {
@@ -227,6 +232,7 @@ export interface NavigateLinkPrev {
 
 export type Message =
   BackgroundOperationMessage |
+  ConsoleFocusMessage |
   ConsoleUnfocusMessage |
   ConsoleEnterCommandMessage |
   ConsoleEnterFindMessage |
@@ -266,6 +272,7 @@ export type Message =
 // eslint-disable-next-line complexity
 export const valueOf = (o: any): Message => {
   switch (o.type) {
+  case CONSOLE_FOCUS:
   case CONSOLE_UNFOCUS:
   case CONSOLE_ENTER_COMMAND:
   case CONSOLE_ENTER_FIND:

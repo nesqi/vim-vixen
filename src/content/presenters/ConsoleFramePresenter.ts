@@ -2,6 +2,7 @@ export default interface ConsoleFramePresenter {
   initialize(): void;
 
   blur(): void;
+  focus(): void;
 }
 
 export class ConsoleFramePresenterImpl implements ConsoleFramePresenter {
@@ -19,5 +20,14 @@ export class ConsoleFramePresenterImpl implements ConsoleFramePresenter {
       throw new Error('console frame not created');
     }
     ele.blur();
+    ele.style.height='0%';
+  }
+
+  focus(): void {
+    let ele = document.getElementById('vimvixen-console-frame');
+    if (!ele) {
+      throw new Error('console frame not created');
+    }
+    ele.style.height='100%';
   }
 }

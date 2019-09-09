@@ -13,4 +13,8 @@ export default class ConsoleFrameUseCase {
     window.focus();
     this.consoleFramePresenter.blur();
   }
+
+  focus() {
+    this.consoleFramePresenter.focus();
+  }
 }

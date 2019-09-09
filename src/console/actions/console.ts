@@ -8,6 +8,9 @@ const hide = (): actions.ConsoleAction => {
 };
 
 const showCommand = (text: string): actions.ConsoleAction => {
+  window.top.postMessage(JSON.stringify({
+    type: messages.CONSOLE_FOCUS,
+  }), '*');
   return {
     type: actions.CONSOLE_SHOW_COMMAND,
     text: text
