@@ -25,8 +25,11 @@ class Console extends React.Component<Props> {
   }
 
   onBlur() {
-    if (this.props.mode === 'command' || this.props.mode === 'find') {
+    if (this.props.mode === 'find') {
       return this.props.dispatch(consoleActions.hideCommand());
+    }
+    if (this.props.mode === 'command') {
+      //this.focus();
     }
   }
 
@@ -123,7 +126,7 @@ class Console extends React.Component<Props> {
     switch (this.props.mode) {
     case 'command':
     case 'find':
-      return <div className='vimvixen-console-command-wrapper'>
+      return <div className='vimvixen-console-command-wrapper' onMouseUp={this.focus}>
         <Completion
           size={COMPLETION_MAX_ITEMS}
           completions={this.props.completions}
@@ -148,7 +151,7 @@ class Console extends React.Component<Props> {
     }
   }
 
-  focus() {
+  focus = () => {
     window.focus();
     if (this.input.current) {
       this.input.current.focus();
