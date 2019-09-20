@@ -9,6 +9,10 @@ export default class ConsoleFrameUseCase {
   ) {
   }
 
+  setHeight(height : number) {
+    this.consoleFramePresenter.setHeight(height);
+  }
+
   unfocus() {
     window.focus();
     this.consoleFramePresenter.blur();

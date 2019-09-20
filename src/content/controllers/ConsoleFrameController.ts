@@ -13,6 +13,10 @@ export default class ConsoleFrameController {
     this.consoleFrameUseCase.unfocus();
   }
 
+  setHeight(_message: messages.ConsoleSetHeightMessage) {
+    this.consoleFrameUseCase.setHeight(_message.height);
+  }
+
   focus(_message: messages.Message) {
     this.consoleFrameUseCase.focus();
   }

@@ -58,6 +58,8 @@ export default class Application {
         return this.consoleFrameController.focus(msg);
       case messages.CONSOLE_UNFOCUS:
         return this.consoleFrameController.unfocus(msg);
+      case messages.CONSOLE_SET_HEIGHT:
+        return this.consoleFrameController.setHeight(msg);
       case messages.FOLLOW_START:
         return this.followMasterController.followStart(msg);
       case messages.FOLLOW_RESPONSE_COUNT_TARGETS:

@@ -6,6 +6,8 @@ import Completion from './console/Completion';
 import Message from './console/Message';
 import * as consoleActions from '../../console/actions/console';
 import { State as AppState } from '../reducers';
+import ResizeObserver from 'react-resize-observer';
+import * as messages from '../../shared/messages';
 
 const COMPLETION_MAX_ITEMS = 33;
 
@@ -127,6 +129,7 @@ class Console extends React.Component<Props> {
     case 'command':
     case 'find':
       return <div className='vimvixen-console-command-wrapper' onMouseUp={this.focus}>
+        <ResizeObserver onResize={this.onresize} />
         <Completion
           size={COMPLETION_MAX_ITEMS}
           completions={this.props.completions}
@@ -143,12 +146,22 @@ class Console extends React.Component<Props> {
       </div>;
     case 'info':
     case 'error':
-      return <Message mode={ this.props.mode } >
-        { this.props.messageText }
-      </Message>;
+      return <div>
+        <ResizeObserver onResize={this.onresize} />
+        <Message mode={ this.props.mode } >
+          { this.props.messageText }
+        </Message>
+        </div>;
     default:
       return null;
     }
+  }
+
+  onresize = (rect : any) => {
+    window.top.postMessage(JSON.stringify({
+        type: messages.CONSOLE_SET_HEIGHT,
+        height: rect.height
+    }), '*');
   }
 
   focus = () => {

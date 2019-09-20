@@ -12,6 +12,7 @@ export const CONSOLE_SHOW_ERROR = 'console.show.error';
 export const CONSOLE_SHOW_INFO = 'console.show.info';
 export const CONSOLE_SHOW_FIND = 'console.show.find';
 export const CONSOLE_HIDE = 'console.hide';
+export const CONSOLE_SET_HEIGHT = 'console.set.height';
 
 export const FOLLOW_START = 'follow.start';
 export const FOLLOW_REQUEST_COUNT_TARGETS = 'follow.request.count.targets';
@@ -97,6 +98,11 @@ export interface ConsoleShowFindMessage {
 
 export interface ConsoleHideMessage {
   type: typeof CONSOLE_HIDE;
+}
+
+export interface ConsoleSetHeightMessage {
+  type: typeof CONSOLE_SET_HEIGHT;
+  height: number;
 }
 
 export interface FollowStartMessage {
@@ -242,6 +248,7 @@ export type Message =
   ConsoleShowInfoMessage |
   ConsoleShowFindMessage |
   ConsoleHideMessage |
+  ConsoleSetHeightMessage |
   FollowStartMessage |
   FollowRequestCountTargetsMessage |
   FollowResponseCountTargetsMessage |
@@ -282,6 +289,7 @@ export const valueOf = (o: any): Message => {
   case CONSOLE_SHOW_INFO:
   case CONSOLE_SHOW_FIND:
   case CONSOLE_HIDE:
+  case CONSOLE_SET_HEIGHT:
   case FOLLOW_START:
   case FOLLOW_REQUEST_COUNT_TARGETS:
   case FOLLOW_RESPONSE_COUNT_TARGETS:

@@ -67,6 +67,7 @@
     "web-ext-types": "^3.2.1",
     "webextensions-api-fake": "^0.8.0",
     "webpack": "^4.39.2",
-    "webpack-cli": "^3.3.7"
+    "webpack-cli": "^3.3.7",
+    "react-resize-observer": "^1.1.1"
   }
 }

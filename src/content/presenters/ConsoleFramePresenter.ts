@@ -1,6 +1,7 @@
 export default interface ConsoleFramePresenter {
   initialize(): void;
 
+  setHeight(height: number): void;
   blur(): void;
   focus(): void;
 }
@@ -12,6 +13,14 @@ export class ConsoleFramePresenterImpl implements ConsoleFramePresenter {
     iframe.id = 'vimvixen-console-frame';
     iframe.className = 'vimvixen-console-frame';
     document.body.append(iframe);
+  }
+
+  setHeight(height: number): void {
+    let ele = document.getElementById('vimvixen-console-frame');
+    if (!ele) {
+      throw new Error('console frame not created');
+    }
+    ele.style.height=height+'px';
   }
 
   blur(): void {
