@@ -18,12 +18,18 @@ const showCommand = (text: string): actions.ConsoleAction => {
 };
 
 const showFind = (): actions.ConsoleAction => {
+  window.top.postMessage(JSON.stringify({
+    type: messages.CONSOLE_FOCUS,
+  }), '*');
   return {
     type: actions.CONSOLE_SHOW_FIND,
   };
 };
 
 const showError = (text: string): actions.ConsoleAction => {
+  window.top.postMessage(JSON.stringify({
+    type: messages.CONSOLE_FOCUS,
+  }), '*');
   return {
     type: actions.CONSOLE_SHOW_ERROR,
     text: text
@@ -31,6 +37,9 @@ const showError = (text: string): actions.ConsoleAction => {
 };
 
 const showInfo = (text: string): actions.ConsoleAction => {
+  window.top.postMessage(JSON.stringify({
+    type: messages.CONSOLE_FOCUS,
+  }), '*');
   return {
     type: actions.CONSOLE_SHOW_INFO,
     text: text
